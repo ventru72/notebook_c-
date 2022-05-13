@@ -20,6 +20,7 @@ namespace Zapicnaya_book
         }
        static void Сhoice()
         {
+            int h;
             save s = new save();
             Console.WriteLine($"Выберите действие:");
             Console.WriteLine($"1 - Создать новый файл.\n2 - Загрузить файл из компьютера.");
