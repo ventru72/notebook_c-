@@ -1,0 +1,16 @@
+C:\Users\masta\source\repos\ConsoleApp13\Zapicnaya_book\bin\Debug\Zapicnaya_book.exe.config
+C:\Users\masta\source\repos\ConsoleApp13\Zapicnaya_book\bin\Debug\Zapicnaya_book.exe
+C:\Users\masta\source\repos\ConsoleApp13\Zapicnaya_book\bin\Debug\Zapicnaya_book.pdb
+C:\Users\masta\source\repos\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.csproj.AssemblyReference.cache
+C:\Users\masta\source\repos\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.csproj.SuggestedBindingRedirects.cache
+C:\Users\masta\source\repos\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.csproj.CoreCompileInputs.cache
+C:\Users\masta\source\repos\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.exe
+C:\Users\masta\source\repos\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.pdb
+D:\ConsoleApp13\Zapicnaya_book\bin\Debug\Zapicnaya_book.exe.config
+D:\ConsoleApp13\Zapicnaya_book\bin\Debug\Zapicnaya_book.exe
+D:\ConsoleApp13\Zapicnaya_book\bin\Debug\Zapicnaya_book.pdb
+D:\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.csproj.AssemblyReference.cache
+D:\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.csproj.SuggestedBindingRedirects.cache
+D:\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.csproj.CoreCompileInputs.cache
+D:\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.exe
+D:\ConsoleApp13\Zapicnaya_book\obj\Debug\Zapicnaya_book.pdb
