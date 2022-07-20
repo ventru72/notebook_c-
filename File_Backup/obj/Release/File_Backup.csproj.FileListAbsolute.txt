@@ -1,0 +1,11 @@
+C:\Users\masta\source\repos\File_Backup\File_Backup\bin\Release\File_Backup.exe.config
+C:\Users\masta\source\repos\File_Backup\File_Backup\bin\Release\File_Backup.exe
+C:\Users\masta\source\repos\File_Backup\File_Backup\bin\Release\File_Backup.pdb
+C:\Users\masta\source\repos\File_Backup\File_Backup\bin\Release\Newtonsoft.Json.dll
+C:\Users\masta\source\repos\File_Backup\File_Backup\bin\Release\Newtonsoft.Json.xml
+C:\Users\masta\source\repos\File_Backup\File_Backup\obj\Release\File_Backup.csproj.AssemblyReference.cache
+C:\Users\masta\source\repos\File_Backup\File_Backup\obj\Release\File_Backup.csproj.SuggestedBindingRedirects.cache
+C:\Users\masta\source\repos\File_Backup\File_Backup\obj\Release\File_Backup.csproj.CoreCompileInputs.cache
+C:\Users\masta\source\repos\File_Backup\File_Backup\obj\Release\File_Backup.csproj.CopyComplete
+C:\Users\masta\source\repos\File_Backup\File_Backup\obj\Release\File_Backup.exe
+C:\Users\masta\source\repos\File_Backup\File_Backup\obj\Release\File_Backup.pdb
