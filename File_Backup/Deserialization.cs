@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
- 
+using System.IO.Compression;
+
 
 
 
@@ -73,9 +74,11 @@ namespace File_Backup
         {
             string Original_Path = deserialization.Desser_Json().Original_Path;
             string Target_Path = deserialization.Desser_Json().Target_Path;
+            // рекурсивно получаем перечнь всех папок
             string[] files_original = Directory.GetDirectories(Original_Path, "*.*", SearchOption.AllDirectories);
             string[] files_target = new string[files_original.Length];
-           
+
+            //создаем пустые папки для записи в них файлов
             for (int i = 0; i < files_target.Length; i++)
             {
                 files_target[i] = files_original[i].Replace(Original_Path, Target_Path);
@@ -84,21 +87,25 @@ namespace File_Backup
                     Directory.CreateDirectory(files_target[i]);
                 }
             }
+            // проверяем  корневую папку для таргет файлов, если не существует создаем
             if (Directory.Exists(Target_Path) == false)
             {
                 Directory.CreateDirectory(Target_Path);
             }
+
+            // копируем файлы в корневой директории
             string[] fiels_root = Directory.GetFiles(Original_Path);
 
             foreach (string fiel in fiels_root)
             {
                 File.Copy(fiel, Path.Combine(Target_Path, Path.GetFileName(fiel)), true);
             }
-            
+
+            // копируем файлы из вложеных папок в уже готовые таргет папки в нужном месте
             for (int i = 0; i < files_original.Length; i++)
             {
-                string[] fiels =  Directory.GetFiles(files_original[i]);
-                
+                string[] fiels = Directory.GetFiles(files_original[i]);
+
                 foreach (string fiel in fiels)
                 {
                     File.Copy(fiel, Path.Combine(files_target[i], Path.GetFileName(fiel)), true);
@@ -127,7 +134,24 @@ namespace File_Backup
             //    Console.WriteLine(info.Name);
 
 
-           Console.ReadKey();
+            Console.ReadKey();
+        }
+        public void Zip(Backup deserialization)
+        {
+            string Original_Path = deserialization.Desser_Json().Original_Path;
+            string str = Convert.ToString(DateTime.Now);
+            string date_time = str.Replace(":", "_");
+            date_time = date_time.Replace(".", " ");
+            //DateTime date_time = DateTime.ParseExact(data, "yyyy MM dd THH mm ssZ",
+            //                    System.Globalization.CultureInfo.InvariantCulture);
+            string Target_Path = deserialization.Desser_Json().Target_Path + "\\" + date_time;
+            if (Directory.Exists(Target_Path) == false)
+            {
+                Directory.CreateDirectory(Target_Path);
+            }
+            ZipFile.CreateFromDirectory(Original_Path, Target_Path + "\\Backup.zip");
+            Console.WriteLine($"Папка {Original_Path} архивирована в файл {Target_Path + "\\Backup.zip"}");
+            Console.ReadKey();
         }
     }
 }
