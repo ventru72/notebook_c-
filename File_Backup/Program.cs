@@ -11,12 +11,23 @@ namespace File_Backup
         static void Main(string[] args)
         {
             Backup deserialization = new Backup();
-            //string Original_Path = deserialization.Desser_Json().Original_Path;
-            //string Target_Path = deserialization.Desser_Json().Target_Path;
-            //Console.WriteLine($"Исходная папка: {Original_Path}\nЦелевая папка: {Target_Path} ");
-            //deserialization.CopyFolder(Original_Path, Target_Path);
-            // deserialization.Show_Info_Directory(deserialization.Desser_Json());
-
+            Log_Input log_input = new Log_Input();
+            log_input.Output_console(true);
+            log_input.Output_file(true);
+            log_input.Type_Loggers(Type_Input_Loggers.Debug);
+            //void Output_Test_String()
+            //{
+            //    string message = "Тестовое сообщение";
+                 
+            //    log_input.Error(message);
+            //    log_input.Info(message);
+            //    log_input.Debug(message);
+            //    Console.ReadKey();
+            //}
+            //Output_Test_String();
+            string message = "Тестовое сообщение";
+            log_input.Debug(message);
+            Console.ReadKey();
             deserialization.Zip(deserialization.Desser_Json());
         }
     }

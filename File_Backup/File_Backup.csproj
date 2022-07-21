@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Backup.cs" />
     <Compile Include="Deserialization.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

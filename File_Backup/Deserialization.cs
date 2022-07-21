@@ -139,18 +139,25 @@ namespace File_Backup
         public void Zip(Backup deserialization)
         {
             string Original_Path = deserialization.Desser_Json().Original_Path;
-            string str = Convert.ToString(DateTime.Now);
-            string date_time = str.Replace(":", "_");
-            date_time = date_time.Replace(".", " ");
-            //DateTime date_time = DateTime.ParseExact(data, "yyyy MM dd THH mm ssZ",
-            //                    System.Globalization.CultureInfo.InvariantCulture);
+            string date_time = DateTime.Now.ToString(("MM-dd-yyyy--HH-mm-ss"));
             string Target_Path = deserialization.Desser_Json().Target_Path + "\\" + date_time;
+            string message = "Запущенно резервное копирование!";
+
+
+            if (Directory.Exists(Original_Path) == false)
+            {   
+                Directory.CreateDirectory(Original_Path);
+                 message =$"Созданна исходная папка {Original_Path}.";
+            }
+
             if (Directory.Exists(Target_Path) == false)
             {
                 Directory.CreateDirectory(Target_Path);
+                 message = $"Созданна целевая папка {Target_Path + "\\Backup.zip"}.";
             }
+           
             ZipFile.CreateFromDirectory(Original_Path, Target_Path + "\\Backup.zip");
-            Console.WriteLine($"Папка {Original_Path} архивирована в файл {Target_Path + "\\Backup.zip"}");
+            Console.WriteLine($"Папка {Original_Path} архивирована в файл {Target_Path + "\\Backup.zip"}.");
             Console.ReadKey();
         }
     }
