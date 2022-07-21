@@ -1,4 +1,6 @@
 {
   "Original_Path": "E:\\Original_Path",
-  "Target_Path": "E:\\Target_Path"
+  "Target_Path": "E:\\Target_Path",
+  "Type_Loggers": "Debug"  //Выбрать из трех уровней логгирования (Info, Debug, Error)
+  //Если уровень логгирования будет выбран некорректно, значение по умолчанию - Info
 }

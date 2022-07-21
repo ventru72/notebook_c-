@@ -16,23 +16,26 @@ namespace File_Backup
     {
         public string Original_Path { get; set; }
         public string Target_Path { get; set; }
+        public string Type_Loggers { get; set; }
+
         public Backup( )
         {  
         }
-        public Backup(string Original_Path, string Target_Path)
+        public Backup(string Original_Path, string Target_Path, string Type_Loggers)
         {
             this.Original_Path = Original_Path;
             this.Target_Path = Target_Path;
+            this.Type_Loggers = Type_Loggers;
         }
-        public void Serial_Json()
-        {
-            string path = $@"E:\copy_path.json";
-            Backup serializ = new Backup($@"E:\Original_Path", $@"E:\Target_Path");
-            string json = JsonConvert.SerializeObject(serializ);
-            File.WriteAllText(path, json);
-            Console.WriteLine("Сериализация завершена");
-            Console.ReadKey();
-        }
+        //public void Serial_Json()
+        //{
+        //    string path = $@"E:\copy_path.json";
+        //    Backup serializ = new Backup($@"E:\Original_Path", $@"E:\Target_Path");
+        //    string json = JsonConvert.SerializeObject(serializ);
+        //    File.WriteAllText(path, json);
+        //    Console.WriteLine("Сериализация завершена");
+        //    Console.ReadKey();
+        //}
         public Backup Desser_Json()
         {
           
@@ -41,7 +44,7 @@ namespace File_Backup
             Backup deserialization = JsonConvert.DeserializeObject<Backup>(read_json);
             return deserialization;
         }
-       public void CopyFolder(string Original_Path, string Target_Path)
+       public void CopyFolder(string Original_Path, string Target_Path )
         {
 
             if (!Directory.Exists(Target_Path))
@@ -108,16 +111,36 @@ namespace File_Backup
            
             Console.ReadKey();
         }
-
-        [Obsolete]
+        
+         
+        
         public void Zip(Backup deserialization)
         {
+            //Настройка логгера
             Log_Input log_input = new Log_Input();
             string message = string.Empty;
             log_input.Output_console(true);
             log_input.Output_file(true);
-            log_input.Type_Loggers(Type_Input_Loggers.Debug);
+            Type_Input_Loggers type_Input_Loggers;
+            switch (deserialization.Type_Loggers)
+            {
+                case "Debug":
+                      type_Input_Loggers = Type_Input_Loggers.Debug;
+                        break;
+                case "Info":
+                    type_Input_Loggers = Type_Input_Loggers.Debug;
+                    break;
+                case "Error":
+                    type_Input_Loggers = Type_Input_Loggers.Debug;
+                    break;
+                default: type_Input_Loggers = Type_Input_Loggers.Info;
+                    break;
 
+
+            }
+            log_input.Type_Loggers(type_Input_Loggers);
+
+            //Архивирование
             try {
             string Original_Path = deserialization.Desser_Json().Original_Path;
             string date_time = DateTime.Now.ToString(("MM-dd-yyyy--HH-mm-ss"));
