@@ -147,25 +147,25 @@ namespace File_Backup
             string Target_Path = deserialization.Desser_Json().Target_Path + "\\" + date_time;
 
             message = "Запущенно резервное копирование!";
-                log_input.Info(message);
+                log_input.Info(message, Target_Path);
 
             if (Directory.Exists(Original_Path) == false)
             {   
                 Directory.CreateDirectory(Original_Path);
                 message =$"Созданна исходная папка {Original_Path}.";
-                log_input.Debug(message);
+                log_input.Debug(message, Target_Path);
             }
 
             if (Directory.Exists(Target_Path) == false)
             {
                 Directory.CreateDirectory(Target_Path);
                 message = $"Созданна целевая папка {Target_Path + "\\Backup.zip"}.";
-                log_input.Debug(message);
+                log_input.Debug(message, Target_Path);
             }
            
             ZipFile.CreateFromDirectory(Original_Path, Target_Path + "\\Backup.zip");
             message = $"Папка {Original_Path} архивирована в файл {Target_Path + "\\Backup.zip"}.";
-            log_input.Info(message);
+            log_input.Info(message, Target_Path);
             Console.WriteLine($"Для выхода из программы резервного копирования нажмите пробел.");
             Console.ReadKey();
                 
@@ -173,7 +173,7 @@ namespace File_Backup
             catch (Exception ex)
             {
                 message = $"В методе {ex.TargetSite}, произошла ошибка - {ex.Message}\nОшибка вызвана в {ex.InnerException}.";
-                log_input.Error(message);
+                log_input.Error(message, Target_Path);
             }
         }
     }
