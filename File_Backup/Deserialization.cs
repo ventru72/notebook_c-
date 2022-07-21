@@ -12,7 +12,7 @@ using System.IO.Compression;
 
 namespace File_Backup
 {
-    internal class Backup
+    public  class Backup
     {
         public string Original_Path { get; set; }
         public string Target_Path { get; set; }
@@ -122,6 +122,8 @@ namespace File_Backup
             log_input.Output_console(true);
             log_input.Output_file(true);
             Type_Input_Loggers type_Input_Loggers;
+            string date_time = DateTime.Now.ToString(("MM-dd-yyyy--HH-mm-ss"));
+            string logs_path = deserialization.Target_Path + "\\" + "Logs" + "\\" + date_time + $@"_logs.txt";
             switch (deserialization.Type_Loggers)
             {
                 case "Debug":
@@ -140,32 +142,38 @@ namespace File_Backup
             }
             log_input.Type_Loggers(type_Input_Loggers);
 
-            //Архивирование
+            //
             try {
-            string Original_Path = deserialization.Desser_Json().Original_Path;
-            string date_time = DateTime.Now.ToString(("MM-dd-yyyy--HH-mm-ss"));
-            string Target_Path = deserialization.Desser_Json().Target_Path + "\\" + date_time;
+            string Original_Path = deserialization.Original_Path;
+              
+ 
+             string Target_Path = deserialization.Target_Path + "\\" + date_time;
+                using (FileStream fs = new FileStream(logs_path, FileMode.Create))
+                {
+                   
+                }
 
-            message = "Запущенно резервное копирование!";
-                log_input.Info(message, Target_Path);
+
+                message = "Запущенно резервное копирование! Дождись окончания процесса.";
+                log_input.Info(message, logs_path);
 
             if (Directory.Exists(Original_Path) == false)
             {   
                 Directory.CreateDirectory(Original_Path);
                 message =$"Созданна исходная папка {Original_Path}.";
-                log_input.Debug(message, Target_Path);
+                log_input.Debug(message, logs_path);
             }
 
             if (Directory.Exists(Target_Path) == false)
             {
                 Directory.CreateDirectory(Target_Path);
                 message = $"Созданна целевая папка {Target_Path + "\\Backup.zip"}.";
-                log_input.Debug(message, Target_Path);
+                log_input.Debug(message, logs_path);
             }
            
             ZipFile.CreateFromDirectory(Original_Path, Target_Path + "\\Backup.zip");
             message = $"Папка {Original_Path} архивирована в файл {Target_Path + "\\Backup.zip"}.";
-            log_input.Info(message, Target_Path);
+            log_input.Info(message, logs_path);
             Console.WriteLine($"Для выхода из программы резервного копирования нажмите пробел.");
             Console.ReadKey();
                 
@@ -173,7 +181,7 @@ namespace File_Backup
             catch (Exception ex)
             {
                 message = $"В методе {ex.TargetSite}, произошла ошибка - {ex.Message}\nОшибка вызвана в {ex.InnerException}.";
-                log_input.Error(message, Target_Path);
+                log_input.Error(message, logs_path);
             }
         }
     }

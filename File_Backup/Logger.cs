@@ -96,32 +96,37 @@ namespace File_Backup
         /// <param name="log"></param>
         void Output_File(Log_Input log)
         {
+            Backup deser = new Backup();
+            string str = deser.Desser_Json().Target_Path + "\\" + "Logs";
+            string date_time = DateTime.Now.ToString(("MM-dd-yyyy--HH-mm-ss"));
+            if (!Directory.Exists(str))
+            {
+                Directory.CreateDirectory(str);
+            }
+            string path = str + "\\" + date_time+ $@"logger.txt";
 
-            string path = $@"logger.txt";
 
             File.AppendAllText(path, "\r\n  " + String.Concat(DateTime.Now.ToString() + "\t", log.message), Encoding.UTF8);
         }
-        void Output_File(Log_Input log, string path)
+        void Output_File(Log_Input log, string logs_path)
         {
 
-            string path_ = path + "\\" + "logger.txt";
-
-            File.AppendAllText(path_, "\r\n  " + String.Concat(DateTime.Now.ToString() + "\t", log.message), Encoding.UTF8);
+            File.AppendAllText(logs_path, "\r\n  " + String.Concat(DateTime.Now.ToString() + "\t", log.message), Encoding.UTF8);
         }
         /// <summary>
         /// Вывод на экран
         /// </summary>
         /// <param name="str"></param>
-        void Print(bool output_console, bool output_file,  string message, string path, string type_log)
+        void Print(bool output_console, bool output_file,  string message, string logs_path, string type_log)
         {
             if (output_console == true) Console.WriteLine($"{DateTime.Now}   {message}");
 
             Log_Input log_output = new Log_Input(type_log, DateTime.Now, message);
             log_output.type_log = type_log;
-            if (output_file == true) Output_File(log_output, path);
+            if (output_file == true) Output_File(log_output, logs_path);
              
         }
-        void Print(bool output_console, bool output_file, string message,  string type_log)
+        void Print(bool output_console, bool output_file, string message, string type_log)
         {
             if (output_console == true) Console.WriteLine($"{DateTime.Now}   {message}");
 
@@ -178,14 +183,14 @@ namespace File_Backup
                     Console.Write($"{type_log}|");
                 }
                 Console.ResetColor(); // сбрасываем в стандартный
-                Print(output_console, output_file,  message,  type_log);
+                Print(output_console, output_file,  message, type_log);
             }
         }
         /// <summary>
         /// Перегрузка метода  Info с одним атрибутом
         /// </summary>
         /// <param name="Info"></param>
-        public void Info(string message, string path)
+        public void Info(string message, string logs_path)
         {
             if (type_Input_Loggers == Type_Input_Loggers.Info || type_Input_Loggers == Type_Input_Loggers.Debug)
             {
@@ -197,7 +202,7 @@ namespace File_Backup
                     Console.Write($"{type_log}|");
                 }
                 Console.ResetColor(); // сбрасываем в стандартный
-                Print(output_console, output_file,  message, path, type_log);
+                Print(output_console, output_file,  message, logs_path, type_log);
             }
         }
 
@@ -224,7 +229,7 @@ namespace File_Backup
         /// Перегрузка метода  Debug с одним атрибутом
         /// </summary>
         /// <param name="Debug"></param>
-        public void Debug(string message, string path)
+        public void Debug(string message, string logs_path)
         {
             if (type_Input_Loggers == Type_Input_Loggers.Debug)
             {
@@ -236,7 +241,7 @@ namespace File_Backup
                     Console.Write($"{type_log}|");
                 }
                 Console.ResetColor(); // сбрасываем в стандартный
-                Print(output_console, output_file, path,  message, type_log);
+                Print(output_console, output_file,  message, logs_path, type_log);
             }
         }
         /// <summary>
@@ -262,7 +267,7 @@ namespace File_Backup
         /// Перегрузка метода  Error с одним атрибутом
         /// </summary>
         /// <param name="Error"></param>
-        public void Error(string message, string path)
+        public void Error(string message, string logs_path)
         {
             if (type_Input_Loggers == Type_Input_Loggers.Debug || type_Input_Loggers == Type_Input_Loggers.Info ||  type_Input_Loggers == Type_Input_Loggers.Error)
             {
@@ -274,7 +279,7 @@ namespace File_Backup
                     Console.Write($"{type_log}|");
                 }
                 Console.ResetColor(); // сбрасываем в стандартный
-                Print(output_console, output_file,  message, path, type_log);
+                Print(output_console, output_file,  message, logs_path, type_log);
             }
         }
     }
