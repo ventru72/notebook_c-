@@ -39,13 +39,7 @@ namespace File_Backup
             string path = $@"copy_path.json";
             string read_json = File.ReadAllText(path);
             Backup deserialization = JsonConvert.DeserializeObject<Backup>(read_json);
-            
-           // Console.WriteLine($"Original_Path = {deserialization.Original_Path}\nTarget_Path = {deserialization.Target_Path} ");
-            //Console.ReadKey();
             return deserialization;
-            
-
-
         }
        public void CopyFolder(string Original_Path, string Target_Path)
         {
@@ -111,54 +105,53 @@ namespace File_Backup
                     File.Copy(fiel, Path.Combine(files_target[i], Path.GetFileName(fiel)), true);
                 }
             }
-            //foreach (string file in files_original)
-            //{
-            //    Console.WriteLine(file);
-            //}
-
-            //string[] AllFiles = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
-            //foreach (string filename in AllFiles)
-            //{
-            //    Console.WriteLine(filename);
-            //}
-            //for (int i = 0; i < AllFiles.Length; i++)
-            //{
-            //    FileInfo fileInfo = new FileInfo(AllFiles[i]);
-            //    fileInfo.CopyTo(AllFiles[i]);
-            //}
-
-            //FileInfo fi = new FileInfo(@"E:\Greatest Hits 2020");
-            //DirectoryInfo di = fi.Directory;
-            //FileSystemInfo[] fsi = di.GetFileSystemInfos();
-            //foreach (FileSystemInfo info in fsi)
-            //    Console.WriteLine(info.Name);
-
-
+           
             Console.ReadKey();
         }
+
+        [Obsolete]
         public void Zip(Backup deserialization)
         {
+            Log_Input log_input = new Log_Input();
+            string message = string.Empty;
+            log_input.Output_console(true);
+            log_input.Output_file(true);
+            log_input.Type_Loggers(Type_Input_Loggers.Debug);
+
+            try {
             string Original_Path = deserialization.Desser_Json().Original_Path;
             string date_time = DateTime.Now.ToString(("MM-dd-yyyy--HH-mm-ss"));
             string Target_Path = deserialization.Desser_Json().Target_Path + "\\" + date_time;
-            string message = "Запущенно резервное копирование!";
 
+            message = "Запущенно резервное копирование!";
+                log_input.Info(message);
 
             if (Directory.Exists(Original_Path) == false)
             {   
                 Directory.CreateDirectory(Original_Path);
-                 message =$"Созданна исходная папка {Original_Path}.";
+                message =$"Созданна исходная папка {Original_Path}.";
+                log_input.Debug(message);
             }
 
             if (Directory.Exists(Target_Path) == false)
             {
                 Directory.CreateDirectory(Target_Path);
-                 message = $"Созданна целевая папка {Target_Path + "\\Backup.zip"}.";
+                message = $"Созданна целевая папка {Target_Path + "\\Backup.zip"}.";
+                log_input.Debug(message);
             }
            
             ZipFile.CreateFromDirectory(Original_Path, Target_Path + "\\Backup.zip");
-            Console.WriteLine($"Папка {Original_Path} архивирована в файл {Target_Path + "\\Backup.zip"}.");
+            message = $"Папка {Original_Path} архивирована в файл {Target_Path + "\\Backup.zip"}.";
+            log_input.Info(message);
+            Console.WriteLine($"Для выхода из программы резервного копирования нажмите пробел.");
             Console.ReadKey();
+                
+            }
+            catch (Exception ex)
+            {
+                message = $"В методе {ex.TargetSite}, произошла ошибка - {ex.Message}\nОшибка вызвана в {ex.InnerException}.";
+                log_input.Error(message);
+            }
         }
     }
 }

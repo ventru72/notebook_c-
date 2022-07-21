@@ -25,9 +25,9 @@ namespace File_Backup
             //    Console.ReadKey();
             //}
             //Output_Test_String();
-            string message = "Тестовое сообщение";
-            log_input.Debug(message);
-            Console.ReadKey();
+            //string message = "Тестовое сообщение";
+            //log_input.Debug(message);
+            //Console.ReadKey();
             deserialization.Zip(deserialization.Desser_Json());
         }
     }
